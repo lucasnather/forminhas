@@ -53,7 +53,7 @@ export class AuthenticateUserController {
             }
         
             if(err instanceof Error) {
-                res.status(401).json({
+                res.status(400).json({
                     status: 401,
                     message: 'Bad Request',
                     error: err.message

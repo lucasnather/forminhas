@@ -1,6 +1,5 @@
 import 'dotenv/config'
 import express from 'express';
-import cookierSession from 'cookie-session'
 import session from 'express-session'
 import { userRoute } from './routes/user-route.js'
 import { env } from './env.js'
@@ -8,7 +7,7 @@ import { orderRoute } from './routes/order-route.js'
 import { moldRoute } from './routes/mold-route.js'
 import { clientRoute } from './routes/client-route.js'
 
-const app = express()
+export const app = express()
 
 app.use(express.json())
 app.use(session({
