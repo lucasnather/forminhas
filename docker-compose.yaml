@@ -1,0 +1,21 @@
+services:
+  postgresql:
+    image: 'bitnami/postgresql:latest'
+    container_name: canto-das-forminhas
+    ports:
+      - ${POSTGRES_PORT}:${POSTGRES_PORT}
+    volumes:
+      - ./db:/var/lib/postgresql
+    environment:
+      - POSTGRESQL_DATABASE=${POSTGRES_DATABASE}
+      - POSTGRESQL_USERNAME=${POSTGRES_USERNAME}
+      - POSTGRESQL_PASSWORD=${POSTGRES_PASSWORD}
+    networks:
+      - canto-das-forminhas
+
+volumes:
+  db:
+
+networks:
+  canto-das-forminhas:
+    driver: bridge
