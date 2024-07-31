@@ -13,12 +13,21 @@ afterEach(async () => {
     server.close()
 })
 
-describe('Create User - E2e', () => {
+describe('Authenticate User - E2e', () => {
     
-    it('Should be able to register a user', async () => {
+    it('Should be able to authenticate a user', async () => {
+
+        await request(server)
+        .post('/api/register')
+        .send({
+                username: "user",
+                email: "user@email.com",
+                password: "12345678"
+            })
+    
         
         await request(server)
-            .post('/api/register')
+            .post('/api/authenticate')
             .send({
                     username: "user",
                     email: "user@email.com",
@@ -29,24 +38,16 @@ describe('Create User - E2e', () => {
         
     })
 
-    it('Should not be able to register a user', async () => {
+    it('Should not be able to authenticate a user with invalid credentials', async () => {
         
         await request(server)
-            .post('/api/register')
+            .post('/api/authenticate')
             .send({
-                    username: "user",
-                    email: "user@email.com",
-                    password: "12345678"
-                })
-        
-        await request(server)
-            .post('/api/register')
-            .send({
-                username: "user",
-                email: "user@email.com",
+                username: "wrong-username",
+                email: "wrong-email@email.com",
                 password: "12345678"
             })
-            .expect(400)
+            .expect(401)
     })
 
 

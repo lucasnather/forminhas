@@ -40,7 +40,7 @@ export class CreateOrderController {
         
             if(err instanceof Error) {
                 res.status(400).json({
-                    status: 401,
+                    status: 400,
                     message: 'Bad Request',
                     error: err.message
                 })
