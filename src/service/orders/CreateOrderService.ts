@@ -1,6 +1,7 @@
 import { Orders } from "@prisma/client";
 import { ClientInterface } from "../../interface/ClientInterface.js";
 import { OrderInterface } from "../../interface/OrderInterface.js";
+import { ResourceNotFoundError } from "../../error/ResourceNotFoundError.js";
 
 type CreateOrderRequest = {
     moldsId: number[]
@@ -22,7 +23,7 @@ export class CreateOrderService {
     async execute({ clientId, moldsId, userId }: CreateOrderRequest): Promise<CreateOrderResponse> {
         const client = await this.clientInterface.findById(clientId)
 
-        if(!client) throw new Error('Client Not Found')
+        if(!client) throw new ResourceNotFoundError('Client Not Found')
 
         const order = await this.orderInterface.create({
             clientId,

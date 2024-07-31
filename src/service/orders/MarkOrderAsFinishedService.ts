@@ -1,5 +1,6 @@
 import { Orders } from "@prisma/client";
 import { OrderRepository } from "../../repository/order/OrderRepository.js";
+import { ResourceNotFoundError } from "../../error/ResourceNotFoundError.js";
 
 interface MarkOrderAsFinishedRequest {
     userId: string
@@ -23,7 +24,7 @@ export class MarkOrderAsFinishedService {
             clientName
         )
 
-        if(!order) throw new Error('Client with order Not found')
+        if(!order) throw new ResourceNotFoundError('Order Not found')
 
         return {
             order

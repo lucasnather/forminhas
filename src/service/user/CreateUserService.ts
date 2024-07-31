@@ -1,6 +1,7 @@
 import { Role, User } from "@prisma/client";
 import { UserInterface } from "../../interface/UserInterface.js";
 import { Hash } from "../../utils/Hash.js";
+import { UserAlreadyExistsError } from "../../error/UserAlreadyExistsError.js";
 
 type CreateUserRequest = {
     email: string
@@ -23,11 +24,11 @@ export class CreateUserService {
     async execute({ email, password, role, username }: CreateUserRequest): Promise<CreateUserResponse> {
         const isUserExistWithUsername = await this.userInterface.findByUsername(username)
 
-        if(isUserExistWithUsername) throw new Error('User exist')
+        if(isUserExistWithUsername) throw new UserAlreadyExistsError()
 
         const isUserExistWithEmail = await this.userInterface.findByEmail(email)
 
-        if(isUserExistWithEmail) throw new Error('User exist')
+        if(isUserExistWithEmail) throw new UserAlreadyExistsError()
 
         const hashPassword = await this.hash.hashPassword(password)
 
