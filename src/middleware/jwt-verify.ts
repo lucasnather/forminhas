@@ -8,7 +8,7 @@ export function jwtVerify(req: Request, res: Response, next: NextFunction) {
     let token = authorization?.substring(7, authorization.length)
     
     if(!token) {
-        res.status(404).json({
+        res.status(401).json({
             message: "Não autorizado"
         })
         return
@@ -17,7 +17,7 @@ export function jwtVerify(req: Request, res: Response, next: NextFunction) {
     
     jwt.verify(token, env.JWT_SECRET, (err, decoded) => {
         if(err) {
-            res.status(403).json({
+            res.status(401).json({
                 message: "Não autorizado"
             })
         }
