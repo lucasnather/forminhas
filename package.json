@@ -4,7 +4,6 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    
     "test:env:create": "npm link ./prisma/vitest-environment-prisma",
     "test:env:install": "npm link vitest-environment-prisma",
     "pretest:e2e": "run-s test:env:create test:env:install",
@@ -12,7 +11,6 @@
     "test:e2e": "vitest  --dir src/controller ",
     "dev": " tsx --env-file .env src/server.ts",
     "dev:watch": "tsx watch --env-file .env src/server.ts",
-    "vercel.build": "npx prisma migrate deploy",
     "build": "tsup src --out-dir dist",
     "start": "node dist/server.js"
   },
@@ -21,6 +19,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@vercel/postgres": "0.10.0",
     "bcrypt": "5.1.1",
     "dotenv": "16.4.5",
     "express": "4.19.2",
