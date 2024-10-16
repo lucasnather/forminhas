@@ -3,6 +3,12 @@ import { OrderInterface } from "../../interface/OrderInterface.js";
 import { randomUUID } from 'node:crypto'
 
 export class InMemoryOrderRepository implements OrderInterface {
+    updateByWasFinished(userId: string, id: string, clientName: string): Promise<Orders | null> {
+        throw new Error("Method not implemented.");
+    }
+    updateByWasPaid(userId: string, id: string, clientName: string): Promise<Orders | null> {
+        throw new Error("Method not implemented.");
+    }
     
 
     private ordersItems: Orders[] = []

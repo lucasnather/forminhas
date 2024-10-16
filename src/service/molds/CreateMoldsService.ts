@@ -1,4 +1,4 @@
-import { Model, Molds, Role, User } from "@prisma/client";
+import { Model, Molds } from "@prisma/client";
 import { MoldInterface } from "../../interface/MoldInterface.js";
 
 type CreateMoldsRequest = {
