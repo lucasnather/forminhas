@@ -2,6 +2,8 @@ import { hash } from "bcrypt";
 import { InMemoryUserRepository } from "../../repository/user/InMemoryUserRepository.js";
 import { Hash } from "../../utils/Hash.js";
 import { AuthenticateUserService } from "./AuthenticateUserService.js";
+import { afterEach, beforeEach, describe, it , expect} from 'vitest'
+
 
 let inMemoryUserRepository: InMemoryUserRepository
 let hashPassowrd: Hash

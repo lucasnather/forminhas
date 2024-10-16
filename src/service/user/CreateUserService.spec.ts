@@ -5,6 +5,8 @@ import { CreateUserService } from "./CreateUserService.js";
 let inMemoryUserRepository: InMemoryUserRepository
 let hash: Hash
 let sut: CreateUserService
+import { afterEach, beforeEach, describe, it, expect } from 'vitest'
+
 
 beforeEach(() => {
     inMemoryUserRepository = new InMemoryUserRepository()
