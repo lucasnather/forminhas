@@ -12,10 +12,10 @@
     "pretest:e2e": "run-s test:env:create test:env:install",
     "test": "vitest --dir src/service",
     "test:e2e": "vitest  --dir src/controller ",
-    "dev": " tsx --env-file .env src/server.ts",
-    "dev:watch": "tsx watch --env-file .env src/server.ts",
+    "dev": " tsx --env-file .env src/index.ts",
+    "dev:watch": "tsx watch --env-file .env src/index.ts",
     "build": "tsc",
-    "start": "node dist/server.js"
+    "start": "node dist/index.js"
   },
   "keywords": [],
   "author": "",
