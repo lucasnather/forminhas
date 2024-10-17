@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
+  "engines": {
+    "node": ">=14.x.x"
+  },
   "scripts": {
     "test:env:create": "npm link ./prisma/vitest-environment-prisma",
     "test:env:install": "npm link vitest-environment-prisma",
