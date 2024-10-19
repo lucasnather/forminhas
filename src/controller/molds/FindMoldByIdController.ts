@@ -1,31 +1,25 @@
 import { z, ZodError } from "zod";
 import { Request, Response } from "express";
-import { makeCreateUser } from "../../factory/make-create-user.js";
+import { makeFindMoldById } from "../../factory/make-find-many-molds.js";
 
-const createUserBodySchema = z.object({
-    username: z.string(),
-    email: z.string().email(),
-    password: z.string().min(8, "Senha deve conter ao menos 8 caracteres"),
-    role: z.enum(['Admin', 'Boss', 'User']).optional().default('User'),
+const findMoldParamSchema = z.object({
+    id: z.coerce.number()
 })
 
-export class CreateUserController {
+export class FindMoldByIdController {
 
-    async create(req: Request, res: Response) {
+    async find(req: Request, res: Response) {
         
         try {
-            const { email,password,role,username  } = createUserBodySchema.parse(req.body)
+            const { id } = findMoldParamSchema.parse(req.params)
     
-            const createUserService = makeCreateUser()
+            const findMoldsByIdService = makeFindMoldById()
             
-            const { user } = await createUserService.execute({
-                email,
-                password,
-                username,
-                role
+            const { mold } = await findMoldsByIdService.exeute({
+                id
             })
 
-            return res.status(201).json(user)
+            return res.status(201).json(mold)
         } catch(err) {
             if(err instanceof ZodError) {
                 res.status(404).json({

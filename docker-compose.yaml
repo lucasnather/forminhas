@@ -3,7 +3,7 @@ services:
     image: 'bitnami/postgresql:latest'
     container_name: canto-das-forminhas
     ports:
-      - ${POSTGRES_PORT}:${POSTGRES_PORT_DEV}
+      - ${POSTGRES_PORT_DEV}:${POSTGRES_PORT_DEV}
     volumes:
       - ./db:/var/lib/postgresql
     environment:

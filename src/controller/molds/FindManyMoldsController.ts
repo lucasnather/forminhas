@@ -1,34 +1,17 @@
 import { z, ZodError } from "zod";
 import { Request, Response } from "express";
-import { makeCreateMold } from "../../factory/make-create-mold.js";
+import { makeFindMolds } from "../../factory/make-find-mold-by-id.js";
 
-const createMoldBodySchema = z.object({
-    amount: z.coerce.number(),
-    tonality: z.string(),
-    model: z.enum(["Rosa_aberta", "Rosa_fechada", "Liro", "Coracoes_apaixonados", "Girassol"]),
-    price: z.coerce.number(),
-    image: z.string().url().optional()
-})
 
-export class CreateMoldController {
+export class FindManyMoldController {
 
-    async create(req: Request, res: Response) {
+    async findMany(req: Request, res: Response) {
         
         try {
-            const { amount, model,tonality, price, image } = createMoldBodySchema.parse(req.body)
-            const sub = req.cookies
-            console.log(sub)
     
-            const createMoldService = makeCreateMold()
+            const findManyMoldsService = makeFindMolds()
             
-            const { molds } = await createMoldService.execute({
-                amount,
-                model,
-                tonality,
-                price,
-                image,
-                userId: sub
-            })
+            const { molds } = await findManyMoldsService.exeute()
 
             return res.status(201).json(molds)
         } catch(err) {

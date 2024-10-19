@@ -16,6 +16,7 @@ datasource db {
 enum Role {
   Admin
   Boss
+  User
 }
 
 enum Model {
@@ -27,50 +28,51 @@ enum Model {
 }
 
 model User {
-  id String @id @default(uuid())
-  username String @unique()
-  email String @unique()
-  password String
-  role Role @default(Boss)
-  createdAt DateTime @default(now()) @map("created_at")
+  id        String    @id @default(uuid())
+  username  String    @unique()
+  email     String    @unique()
+  password  String
+  role      Role      @default(Boss)
+  createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime? @map("updated_at")
 
   clients Client[]
-  orders Orders[] 
-  molds Molds[]
+  orders  Orders[]
+  molds   Molds[]
 
   @@map("users")
 }
 
 model Molds {
-  id Int @id @default(autoincrement())
-  tonality String
-  amount Int
-  model Model
-  price Float
-  createdAt DateTime @default(now()) @map("created_at")
+  id        Int       @id @default(autoincrement())
+  tonality  String
+  amount    Int
+  model     Model
+  price     Float
+  image     String?
+  createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime? @map("updated_at")
 
-  user User @relation(fields: [userId], references: [id])
-  userId String @unique()
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
 
-  orders Orders[] 
-  
+  orders Orders[]
+
   @@map("molds")
 }
 
 model Orders {
-  id String @id @default(uuid())
-  wasFinished Boolean @default(false) 
-  wasPaid Boolean @default(false)
-  finishedAt DateTime?  @map("finished_at")
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime? @map("updated_at")
+  id          String    @id @default(uuid())
+  wasFinished Boolean   @default(false)
+  wasPaid     Boolean   @default(false)
+  finishedAt  DateTime? @map("finished_at")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime? @map("updated_at")
 
-  client Client @relation(fields: [clientId], references: [id])
-  clientId String 
+  client   Client @relation(fields: [clientId], references: [id])
+  clientId String
 
-  user User @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id])
   userId String
 
   molds Molds[]
@@ -79,19 +81,18 @@ model Orders {
 }
 
 model Client {
-  id String @id @default(uuid())
-  name String
-  lastName String
-  contact String 
-  address String
-  createdAt DateTime @default(now()) @map("created_at")
+  id        String    @id @default(uuid())
+  name      String
+  lastName  String
+  contact   String
+  address   String
+  createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime? @map("updated_at")
 
-  user User @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id])
   userId String @unique()
 
+  Orders Orders[]
 
   @@map("clients")
-
-  Orders Orders[]
 }

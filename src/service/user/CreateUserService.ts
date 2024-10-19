@@ -1,5 +1,5 @@
 import { Role, User } from "@prisma/client";
-import { UserInterface } from "../../interface/UserInterface.js";
+import { CreateUSerDto, UserInterface } from "../../interface/UserInterface.js";
 import { Hash } from "../../utils/Hash.js";
 import { UserAlreadyExistsError } from "../../error/UserAlreadyExistsError.js";
 
@@ -11,7 +11,7 @@ type CreateUserRequest = {
 } 
 
 type CreateUserResponse = {
-    user: User
+    user: CreateUSerDto
 }
 
 export class CreateUserService {
