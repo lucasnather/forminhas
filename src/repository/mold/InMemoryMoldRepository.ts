@@ -1,7 +1,10 @@
 import { Prisma, Molds } from "@prisma/client";
-import { MoldInterface } from "../../interface/MoldInterface.js";
+import { CreateMoldDto, MoldInterface } from "../../interface/MoldInterface.js";
 
 export class InMemoryMoldRepository implements MoldInterface {
+    findMany(): Promise<CreateMoldDto[]> {
+        throw new Error("Method not implemented.");
+    }
 
     private moldsItems: Molds[] = []
     private id: number = 0
@@ -15,6 +18,7 @@ export class InMemoryMoldRepository implements MoldInterface {
             model: mold.model,
             price: mold.price,
             userId: mold.userId,
+            image: mold.image || null,
             createdAt: new Date(),
             updatedAt: null
         }

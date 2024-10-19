@@ -1,8 +1,11 @@
 import { Prisma, User } from "@prisma/client";
-import { UserInterface } from "../../interface/UserInterface.js";
+import { FindUserDto, UserInterface } from "../../interface/UserInterface.js";
 import { randomUUID } from 'node:crypto'
 
 export class InMemoryUserRepository implements UserInterface {
+    findById(id: string): Promise<FindUserDto | null> {
+        throw new Error("Method not implemented.");
+    }
 
     private users: User[] = []
 
