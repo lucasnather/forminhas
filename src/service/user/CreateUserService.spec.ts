@@ -16,6 +16,7 @@ beforeEach(() => {
 
 describe('Create User Service - test unit', () => {
 
+    
     it('Should be able to create a new User', async () => {
         // const { user } = await sut.execute({
         //     username: 'lucasnather',
