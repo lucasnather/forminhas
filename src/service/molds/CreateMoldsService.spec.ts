@@ -1,14 +1,17 @@
 import { InMemoryMoldRepository } from "../../repository/mold/InMemoryMoldRepository.js";
+import { InMemoryUserRepository } from "../../repository/user/InMemoryUserRepository.js";
 import { CreateMoldsService } from "./CreateMoldsService.js";
 
 let inMemoryMoldRepository: InMemoryMoldRepository
+let inMemoryUserRepository: InMemoryUserRepository
 let sut: CreateMoldsService
 import { afterEach, beforeEach, describe, it } from 'vitest'
 
 
 beforeEach(() => {
     inMemoryMoldRepository = new InMemoryMoldRepository()
-    sut = new CreateMoldsService(inMemoryMoldRepository)
+    inMemoryUserRepository = new InMemoryUserRepository()
+    sut = new CreateMoldsService(inMemoryMoldRepository, inMemoryUserRepository)
 })
 
 describe('Create Mold Service - test unit', () => {
