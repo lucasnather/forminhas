@@ -1,35 +1,30 @@
 import { z, ZodError } from "zod";
 import { Request, Response } from "express";
-import { makeCreateMold } from "../../factory/make-create-mold.js";
+import { makeFindMoldById } from "../../factory/make-find-many-molds.js";
+import { makeDeleteMoldById } from "../../factory/make-delete-mold-by-id.js";
 
-const createMoldBodySchema = z.object({
-    amount: z.coerce.number(),
-    tonality: z.string(),
-    model: z.enum(["Rosa_aberta", "Rosa_fechada", "Liro", "Coracoes_apaixonados", "Girassol"]),
-    price: z.coerce.number(),
-    image: z.string().url().optional()
+const deleteMoldParamSchema = z.object({
+    moldId: z.coerce.number()
 })
 
-export class CreateMoldController {
+export class DeleteMoldByIdController {
 
-    async create(req: Request, res: Response) {
+    async remove(req: Request, res: Response) {
         
         try {
-            const { amount, model,tonality, price, image } = createMoldBodySchema.parse(req.body)
+            const { moldId } = deleteMoldParamSchema.parse(req.params)
             const sub = req.cookies
     
-            const createMoldService = makeCreateMold()
+            const deleteMoldByIdService = makeDeleteMoldById()
             
-            const { molds } = await createMoldService.execute({
-                amount,
-                model,
-                tonality,
-                price,
-                image,
+            await deleteMoldByIdService.execute({
+                moldId,
                 userId: sub
             })
 
-            return res.status(201).json(molds)
+            return res.status(201).json({
+                message: 'Mold Deleted'
+            })
         } catch(err) {
             if(err instanceof ZodError) {
                 res.status(404).json({

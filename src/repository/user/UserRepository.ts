@@ -1,4 +1,4 @@
-import { Prisma, User } from "@prisma/client";
+import { Prisma, Role, User } from "@prisma/client";
 import { CreateUSerDto, FindUserDto, UserInterface } from "../../interface/UserInterface.js";
 import { prisma } from "../../database/prisma.js";
 

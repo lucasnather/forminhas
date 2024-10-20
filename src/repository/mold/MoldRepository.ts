@@ -3,6 +3,7 @@ import { CreateMoldDto, MoldInterface } from "../../interface/MoldInterface.js";
 import { prisma } from "../../database/prisma.js";
 
 export class MoldRepository implements MoldInterface {
+    
 
     async create(mold: Prisma.MoldsUncheckedCreateInput): Promise<CreateMoldDto> {
         const molds = await prisma.molds.create({
@@ -24,6 +25,15 @@ export class MoldRepository implements MoldInterface {
         })
 
         return molds
+    }
+
+    async deleteById(id: number): Promise<void> {
+      await prisma.molds.delete({
+        where: {
+            id
+        }
+       })
+
     }
 
     async findById(id: number): Promise<CreateMoldDto | null> {

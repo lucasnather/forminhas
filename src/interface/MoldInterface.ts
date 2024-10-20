@@ -10,6 +10,7 @@ export type CreateMoldDto = {
 
 export interface MoldInterface {
     create(mold: Prisma.MoldsUncheckedCreateInput ): Promise<CreateMoldDto>
+    deleteById(id: number): Promise<void>
     findById(id: number): Promise<CreateMoldDto | null>
     findMany(): Promise<CreateMoldDto[]>
 }

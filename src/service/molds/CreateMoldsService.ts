@@ -1,5 +1,7 @@
-import { Model, Molds } from "@prisma/client";
+import { Model, Molds, Role } from "@prisma/client";
+import { NotAutorizedError } from "../../error/NotAuthorized.js";
 import { CreateMoldDto, MoldInterface } from "../../interface/MoldInterface.js";
+import { UserInterface } from "../../interface/UserInterface.js";
 
 type CreateMoldsRequest = {
     amount: number
@@ -18,9 +20,13 @@ export class CreateMoldsService {
 
     constructor(
         private moldInterface: MoldInterface,
+        private userInterface: UserInterface
     ) {}
 
     async execute({ amount, model, tonality, price, userId , image}: CreateMoldsRequest): Promise<CreateMoldsResponse> {
+        const checkIfIsAdmin = await this.userInterface.findById(userId)
+
+        if(checkIfIsAdmin?.role === 'User') throw  new NotAutorizedError()
 
         const molds = await this.moldInterface.create({
             amount,
