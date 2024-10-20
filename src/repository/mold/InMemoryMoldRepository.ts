@@ -2,6 +2,9 @@ import { Prisma, Molds } from "@prisma/client";
 import { CreateMoldDto, MoldInterface } from "../../interface/MoldInterface.js";
 
 export class InMemoryMoldRepository implements MoldInterface {
+    deleteById(id: number): Promise<void> {
+        throw new Error("Method not implemented.");
+    }
     findMany(): Promise<CreateMoldDto[]> {
         throw new Error("Method not implemented.");
     }
