@@ -25,7 +25,6 @@ describe('Create Authenticate Service - test unit', () => {
         })
 
         const { user } = await sut.execute({
-            username: 'lucasnather',
             email: 'nather@email.com',
             password: '12345678',
         })
@@ -43,7 +42,6 @@ describe('Create Authenticate Service - test unit', () => {
        
        expect(async () => {
         await sut.execute({
-            username: 'invalid-username',
             email: 'nather@email.com',
             password: 'wrong-password',
         })
