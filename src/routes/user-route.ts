@@ -67,7 +67,7 @@ router
          *   post:
          *     summary: Usuários
          *     tags: [Usuário]
-         *     description: Cadastro de usuários por email, username e senha
+         *     description: Cadastro de usuários por email e senha
          *     produces:
          *       - application/json
          *     requestBody:
@@ -80,9 +80,6 @@ router
          *               email:
          *                 type: string
          *                 example: user@email.com
-         *               username:
-         *                 type: string
-         *                 example: lucasnather
          *               password:
          *                 type: string
          *                 example: 12345678

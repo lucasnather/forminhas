@@ -6,7 +6,6 @@ import { InvalidCredentialsError } from "../../error/InvalidCredentialsError.js"
 type AuthenticateUserRequest = {
     email: string
     password: string
-    username: string
 }
 
 type AuthenticateUserResponse = {
@@ -20,11 +19,8 @@ export class AuthenticateUserService {
         private hash: Hash
     ) {}
 
-    async execute({ email, password, username }: AuthenticateUserRequest): Promise<AuthenticateUserResponse> {
-        const isUserExistWithUsername = await this.userInterface.findByUsername(username)
-
-        if(!isUserExistWithUsername) throw new InvalidCredentialsError()
-
+    async execute({ email, password }: AuthenticateUserRequest): Promise<AuthenticateUserResponse> {
+   
         const isUserExistWithEmail = await this.userInterface.findByEmail(email)
 
         if(!isUserExistWithEmail) throw new InvalidCredentialsError()
@@ -34,7 +30,7 @@ export class AuthenticateUserService {
         if(!isPasswordValid) throw new InvalidCredentialsError()
         
         return {
-            user: isUserExistWithUsername
+            user: isUserExistWithEmail
         }
     }
 }

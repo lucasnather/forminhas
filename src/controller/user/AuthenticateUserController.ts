@@ -5,7 +5,6 @@ import { makeAuthenticateUser } from "../../factory/make-authenticate-user.js";
 import jwt from 'jsonwebtoken'
 
 const authenticateUserBodySchema = z.object({
-    username: z.string(),
     email: z.string().email(),
     password: z.string(),
 })
@@ -16,14 +15,13 @@ export class AuthenticateUserController {
         let token
         
         try {
-            const { email,password,username  } = authenticateUserBodySchema.parse(req.body)
+            const { email,password  } = authenticateUserBodySchema.parse(req.body)
     
             const authenticateUserService = makeAuthenticateUser()
             
             const { user } = await authenticateUserService.execute({
                 email,
                 password,
-                username,
             })
 
             
