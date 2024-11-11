@@ -8,9 +8,25 @@ export type CreateMoldDto = {
     image?: string | null
 }
 
+export type PhotosProps = {
+    id: number
+    image: string
+    url: string | null
+}
+
+export type PhotosMoldsProps = {
+    image: string
+}
+
+export type DeleteType = {
+    PhotosMolds: PhotosMoldsProps[]
+}
+
+export type PhotosType = Omit<PhotosProps, 'id'>
+
 export interface MoldInterface {
-    create(mold: Prisma.MoldsUncheckedCreateInput ): Promise<CreateMoldDto>
-    deleteById(id: number): Promise<void>
+    create(mold: Prisma.MoldsUncheckedCreateInput, photo: PhotosType): Promise<CreateMoldDto>
+    deleteById(id: number): Promise<DeleteType>
     findById(id: number): Promise<CreateMoldDto | null>
     findMany(): Promise<CreateMoldDto[]>
 }

@@ -5,6 +5,7 @@ import { FindManyMoldController } from '../controller/molds/FindManyMoldsControl
 import { FindMoldByIdController } from '../controller/molds/FindMoldByIdController.js'
 import { FindManyOrderController } from '../controller/orders/FindManyOrdersController.js'
 import { jwtVerify } from '../middleware/jwt-verify.js'
+import { upload } from '../multer/upload.js'
 
 const router = Router()
 
@@ -68,7 +69,7 @@ router
  *       404:
  *         description: Não encontrado
  */
-    .post('/api/molds', jwtVerify, async (req, res) => createMoldController.create(req, res))
+    .post('/api/molds', jwtVerify, upload.single('image'), async (req, res) => createMoldController.create(req, res))
        /**
      * @swagger
      * /api/molds/{id}:

@@ -10,13 +10,21 @@ const createMoldBodySchema = z.object({
     image: z.string().url().optional()
 })
 
+const photosFileSchema = z.object({
+    mimetype: z.string()
+})
+
 export class CreateMoldController {
 
     async create(req: Request, res: Response) {
         
         try {
             const { amount, model,tonality, price, image } = createMoldBodySchema.parse(req.body)
+            const { mimetype } = photosFileSchema.parse(req.file)
             const sub = req.cookies
+
+            const buffer = req.file?.buffer
+
     
             const createMoldService = makeCreateMold()
             
@@ -26,7 +34,9 @@ export class CreateMoldController {
                 tonality,
                 price,
                 image,
-                userId: sub
+                userId: sub,
+                buffer,
+                mimetype
             })
 
             return res.status(201).json(molds)
