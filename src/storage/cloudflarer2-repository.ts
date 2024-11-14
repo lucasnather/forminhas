@@ -29,8 +29,8 @@ export class CloudflareR2Repository implements UploaderInterface {
             Key: image
         })
 
-        const url = await getSignedUrl(client, command)
-
+        const url = await getSignedUrl(client, command, { expiresIn: 172800 })
+ 
         return url
     }
 
